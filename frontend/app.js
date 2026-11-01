@@ -72,7 +72,6 @@ function renderResults() {
           <div class="fact"><span>Group</span><strong>${escapeHtml(r.bloodGroup)}</strong></div>
           <div class="fact"><span>Listed stock</span><strong>${escapeHtml(units)}</strong></div>
           <div class="fact"><span>Freshness</span><strong>${escapeHtml(freshLabel)}</strong></div>
-          <div class="fact"><span>Source</span><strong>eRaktKosh</strong></div>
         </div>
       </div>
       <div class="result-actions">
@@ -89,10 +88,10 @@ function setSearching(value) {
   state.searching = value;
   $("search-button").disabled = value;
   $("search-button").innerHTML = value
-    ? '<span class="spinner btn-spinner" aria-hidden="true"></span> Searching eRaktKosh…'
+    ? '<span class="spinner btn-spinner" aria-hidden="true"></span> Searching…'
     : 'Search availability <span aria-hidden="true">→</span>';
   $("search-progress").hidden = !value;
-  $("progress-heading").textContent = value ? "Searching eRaktKosh" : "Search complete";
+  $("progress-heading").textContent = value ? "Searching listings" : "Search complete";
   $("search-progress").classList.toggle("finished", !value);
   if (!value) $("empty-state").hidden = state.listings.length > 0;
 }
@@ -127,15 +126,15 @@ async function startSearch(event) {
     state.eventSource = stream;
 
     stream.addEventListener("search_started", () => {
-      $("source-progress").innerHTML = '<span class="">eRaktKosh · searching</span>';
-      $("progress-message").textContent = "Connecting to eRaktKosh national blood stock portal...";
+      $("source-progress").innerHTML = '<span class="">Checking listings</span>';
+      $("progress-message").textContent = "Checking for matching blood availability...";
     });
 
     stream.addEventListener("source_status", (e) => {
       const d = JSON.parse(e.data);
       const cls = ["complete", "no_results"].includes(d.status) ? "done" : ["failed", "blocked", "timed_out"].includes(d.status) ? "error" : "";
       const label = d.status === "searching" ? "searching" : d.status === "complete" ? `${d.count} found · ${d.totalScanned || '?'} scanned` : d.status === "no_results" ? "no stock found" : d.status === "failed" ? "error" : d.status;
-      $("source-progress").innerHTML = `<span class="${cls}">${escapeHtml(d.sourceName)} · ${label}</span>`;
+      $("source-progress").innerHTML = `<span class="${cls}">${label}</span>`;
     });
 
     stream.addEventListener("progress", (e) => {
@@ -167,7 +166,7 @@ async function startSearch(event) {
         $("result-count").textContent = "";
         $("empty-state").hidden = false;
         $("empty-state").querySelector("h3").textContent = "No stock currently listed";
-        $("empty-state").querySelector("p").textContent = `${d.totalScanned || 0} blood banks were scanned on eRaktKosh. This does not mean no blood is available — many banks may not update their online inventory. Contact nearby licensed blood banks and the treating hospital directly.`;
+        $("empty-state").querySelector("p").textContent = `${d.totalScanned || 0} blood banks were checked. This does not mean no blood is available. Contact nearby licensed blood banks and the treating hospital directly.`;
       }
 
       $("progress-message").textContent = `Done in ${elapsed}s · ${d.totalScanned || 0} blood banks scanned`;

@@ -2,31 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f7f4">
-  <meta name="description" content="Find blood availability across blood banks instantly. Search eRaktKosh national inventory in one click.">
+  <meta name="description" content="Search blood availability by group, component and location.">
   <title>PennyWise — Blood Availability Search</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="PennyWise home">
-      <span class="brand-mark" aria-hidden="true">🩸</span>
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5C9.2 6.4 5.3 10.2 5.3 14.5a6.7 6.7 0 0 0 13.4 0C18.7 10.2 14.8 6.4 12 2.5Z"/><path class="brand-cross" d="M11 10h2v3h3v2h-3v3h-2v-3H8v-2h3z"/></svg></span>
       <span>PennyWise</span>
     </a>
     <nav>
       <a class="nav-current" href="#search">Find blood</a>
       <a href="#how">How it works</a>
     </nav>
-    <span class="powered-by">Powered by <strong>TinyFish</strong> AI Agent</span>
+    <span class="powered-by">Blood availability search</span>
   </header>
 
   <main id="top">
     <section class="intro">
       <div>
         <p class="overline">BLOOD AVAILABILITY SEARCH</p>
-        <h1>Find blood near<br>the care team.</h1>
-        <p class="intro-copy">Search national blood bank inventory in seconds. We query eRaktKosh, India's government blood stock portal, directly for real-time results.</p>
+        <h1>Find blood availability<br>near you.</h1>
+        <p class="intro-copy">Search blood availability by group, component and location.</p>
       </div>
       <aside class="notice">
         <span class="notice-mark">i</span>
@@ -40,7 +38,6 @@
           <p class="overline">SEARCH REQUEST</p>
           <h2 id="search-heading">What do you need?</h2>
         </div>
-        <span class="secure-note"><span class="status-dot"></span>No patient details needed</span>
       </div>
       <form id="search-form">
         <div class="form-grid">
@@ -88,33 +85,40 @@
       </form>
     </section>
 
+    <details class="travel-note">
+      <summary>Before you travel</summary>
+      <p>Stock can change quickly. Call the blood bank to confirm the group, component and quantity, and ask your care team about compatibility.</p>
+    </details>
+
+    <p class="nearby-note">No blood found in your selected area? PennyWise automatically searches nearby areas for the closest listings.</p>
+
     <section class="results-section" id="results" aria-live="polite">
       <div class="results-heading">
         <div>
           <p class="overline">SEARCH RESULTS</p>
           <h2 id="results-title">No search yet</h2>
-          <p id="results-subtitle">Enter a blood group and location to search eRaktKosh national inventory.</p>
+          <p id="results-subtitle">Enter a blood group and location to search current listings.</p>
         </div>
         <span id="result-count" class="result-count"></span>
       </div>
       <div id="search-progress" class="progress-panel" hidden>
         <div class="progress-top">
           <span class="spinner" aria-hidden="true"></span>
-          <strong id="progress-heading">Searching eRaktKosh</strong>
+          <strong id="progress-heading">Searching listings</strong>
           <span id="progress-count"></span>
         </div>
-        <p id="progress-message">Connecting to eRaktKosh...</p>
+        <p id="progress-message">Checking for matching blood availability...</p>
         <div id="source-progress" class="source-progress"></div>
       </div>
       <div id="results-list" class="results-list"></div>
       <div id="empty-state" class="empty-state">
         <span class="empty-icon" aria-hidden="true">⌖</span>
         <h3>Availability needs a fresh check</h3>
-        <p>Blood stock changes throughout the day. Run a search to see matching listings from eRaktKosh national inventory.</p>
+        <p>Blood stock can change throughout the day. Run a search to see matching listings.</p>
       </div>
       <div class="results-caveat" id="results-caveat" hidden>
         <span>!</span>
-        <p>Inventory shown is reported by eRaktKosh and may be out of date. <strong>Call the blood bank to confirm the group, component and quantity before travelling.</strong> Final compatibility is decided by the treating hospital.</p>
+        <p>Listings may be out of date. <strong>Call the blood bank to confirm the group, component and quantity before travelling.</strong> Final compatibility is decided by the treating hospital.</p>
       </div>
     </section>
 
@@ -122,19 +126,20 @@
       <div>
         <p class="overline">HOW PENNYWISE WORKS</p>
         <h2>One request.<br>Real-time results.</h2>
-        <p>PennyWise queries India's national eRaktKosh blood inventory system directly, parses the stock data, and shows you matching results in seconds — not minutes.</p>
+        <p>PennyWise checks for matching blood availability and shows the listings here.</p>
+        <p class="nearby-feature">No blood found in your selected area? PennyWise automatically searches nearby areas for the closest listings.</p>
       </div>
       <ol>
         <li><span>01</span><div><strong>Tell us what to look for</strong><p>Blood group, component, units and the area to search.</p></div></li>
-        <li><span>02</span><div><strong>eRaktKosh is queried directly</strong><p>We hit the government portal's API in real-time. No browser automation delays.</p></div></li>
-        <li><span>03</span><div><strong>Results ranked & displayed</strong><p>Available stock is shown first, ranked by freshness and location relevance.</p></div></li>
+        <li><span>02</span><div><strong>We check available listings</strong><p>Matching results are gathered and organized for you.</p></div></li>
+        <li><span>03</span><div><strong>Review the results</strong><p>Check listed stock and freshness, then contact the facility to confirm.</p></div></li>
         <li><span>04</span><div><strong>Confirm directly</strong><p>Use the phone number or directions to contact the facility and confirm current stock.</p></div></li>
       </ol>
     </section>
 
     <footer>
-      <a class="brand footer-brand" href="#top"><span class="brand-mark">🩸</span><span>PennyWise</span></a>
-      <p>Availability discovery only · Not medical advice · No blood is sold through this service · Powered by TinyFish AI</p>
+      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5C9.2 6.4 5.3 10.2 5.3 14.5a6.7 6.7 0 0 0 13.4 0C18.7 10.2 14.8 6.4 12 2.5Z"/><path class="brand-cross" d="M11 10h2v3h3v2h-3v3h-2v-3H8v-2h3z"/></svg></span><span>PennyWise</span></a>
+      <p>Made by Gyatso Neesham and Aaryan Singh Bhoi.</p>
     </footer>
   </main>
 
