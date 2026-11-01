@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="Find blood availability across blood banks instantly. Search eRaktKosh national inventory in one click.">
+  <title>PennyWise — Blood Availability Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="PennyWise home">
+      <span class="brand-mark" aria-hidden="true">🩸</span>
+      <span>PennyWise</span>
+    </a>
+    <nav>
+      <a class="nav-current" href="#search">Find blood</a>
+      <a href="#how">How it works</a>
+    </nav>
+    <span class="powered-by">Powered by <strong>TinyFish</strong> AI Agent</span>
+  </header>
+
+  <main id="top">
+    <section class="intro">
+      <div>
+        <p class="overline">BLOOD AVAILABILITY SEARCH</p>
+        <h1>Find blood near<br>the care team.</h1>
+        <p class="intro-copy">Search national blood bank inventory in seconds. We query eRaktKosh, India's government blood stock portal, directly for real-time results.</p>
+      </div>
+      <aside class="notice">
+        <span class="notice-mark">i</span>
+        <p><strong>For discovery only</strong><br>PennyWise does not verify clinical compatibility or reserve units. Your treating hospital and licensed blood bank make those decisions.</p>
+      </aside>
+    </section>
+
+    <section class="search-panel" id="search" aria-labelledby="search-heading">
+      <div class="panel-heading">
+        <div>
+          <p class="overline">SEARCH REQUEST</p>
+          <h2 id="search-heading">What do you need?</h2>
+        </div>
+        <span class="secure-note"><span class="status-dot"></span>No patient details needed</span>
+      </div>
+      <form id="search-form">
+        <div class="form-grid">
+          <label>Blood group
+            <select id="blood-group" required>
+              <option value="">Choose a group</option>
+              <option>A+</option><option>A−</option>
+              <option>B+</option><option>B−</option>
+              <option>AB+</option><option>AB−</option>
+              <option>O+</option><option>O−</option>
+            </select>
+          </label>
+          <label>Component
+            <select id="component" required>
+              <option>Packed Red Blood Cells</option>
+              <option>Whole Blood</option>
+              <option>Platelets</option>
+              <option>Fresh Frozen Plasma</option>
+              <option>Plasma</option>
+              <option>Single Donor Platelet</option>
+              <option>Platelet Concentrate</option>
+              <option>Random Donor Platelets</option>
+              <option>Cryoprecipitate</option>
+              <option>Sagm Packed Red Blood Cells</option>
+            </select>
+          </label>
+          <label>Units needed<input id="units" type="number" min="1" max="20" value="2" required></label>
+          <label class="location-field">City or area
+            <input id="location" type="text" placeholder="e.g. Bengaluru, Karnataka" maxlength="120" autocomplete="address-level2" required>
+            <small>Include state name for best results (e.g. "Bengaluru, Karnataka").</small>
+          </label>
+          <label>Urgency
+            <select id="urgency">
+              <option value="immediate">Immediate</option>
+              <option value="today">Within 24 hours</option>
+              <option value="planning">Planning ahead</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-footer">
+          <p>Urgent need? Contact the treating hospital and local emergency services while searching.</p>
+          <button class="button button-primary" id="search-button" type="submit">Search availability <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="results-section" id="results" aria-live="polite">
+      <div class="results-heading">
+        <div>
+          <p class="overline">SEARCH RESULTS</p>
+          <h2 id="results-title">No search yet</h2>
+          <p id="results-subtitle">Enter a blood group and location to search eRaktKosh national inventory.</p>
+        </div>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div id="search-progress" class="progress-panel" hidden>
+        <div class="progress-top">
+          <span class="spinner" aria-hidden="true"></span>
+          <strong id="progress-heading">Searching eRaktKosh</strong>
+          <span id="progress-count"></span>
+        </div>
+        <p id="progress-message">Connecting to eRaktKosh...</p>
+        <div id="source-progress" class="source-progress"></div>
+      </div>
+      <div id="results-list" class="results-list"></div>
+      <div id="empty-state" class="empty-state">
+        <span class="empty-icon" aria-hidden="true">⌖</span>
+        <h3>Availability needs a fresh check</h3>
+        <p>Blood stock changes throughout the day. Run a search to see matching listings from eRaktKosh national inventory.</p>
+      </div>
+      <div class="results-caveat" id="results-caveat" hidden>
+        <span>!</span>
+        <p>Inventory shown is reported by eRaktKosh and may be out of date. <strong>Call the blood bank to confirm the group, component and quantity before travelling.</strong> Final compatibility is decided by the treating hospital.</p>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div>
+        <p class="overline">HOW PENNYWISE WORKS</p>
+        <h2>One request.<br>Real-time results.</h2>
+        <p>PennyWise queries India's national eRaktKosh blood inventory system directly, parses the stock data, and shows you matching results in seconds — not minutes.</p>
+      </div>
+      <ol>
+        <li><span>01</span><div><strong>Tell us what to look for</strong><p>Blood group, component, units and the area to search.</p></div></li>
+        <li><span>02</span><div><strong>eRaktKosh is queried directly</strong><p>We hit the government portal's API in real-time. No browser automation delays.</p></div></li>
+        <li><span>03</span><div><strong>Results ranked & displayed</strong><p>Available stock is shown first, ranked by freshness and location relevance.</p></div></li>
+        <li><span>04</span><div><strong>Confirm directly</strong><p>Use the phone number or directions to contact the facility and confirm current stock.</p></div></li>
+      </ol>
+    </section>
+
+    <footer>
+      <a class="brand footer-brand" href="#top"><span class="brand-mark">🩸</span><span>PennyWise</span></a>
+      <p>Availability discovery only · Not medical advice · No blood is sold through this service · Powered by TinyFish AI</p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

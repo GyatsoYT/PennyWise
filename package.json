@@ -1,0 +1,11 @@
+{
+  "name": "pennywise",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "node --watch main.js",
+    "setup": "npm --prefix backend install"
+  }
+}
