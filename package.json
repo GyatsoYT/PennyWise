@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node main.js",
     "dev": "node --watch main.js",
-    "setup": "npm --prefix backend install"
+    "setup": "npm --prefix backend install",
+    "build": "npm --prefix backend install",
+    "postinstall": "npm --prefix backend install"
   }
 }

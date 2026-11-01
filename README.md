@@ -1,4 +1,4 @@
-# PennyWise (BloodLink)
+# PennyWise
 
 > **"Every second matters. Finding blood shouldn't take hours."**
 
@@ -9,10 +9,9 @@ Instead of manually calling dozens of hospitals, users enter their requirements 
 ## How it works
 
 1. User submits blood group, component, units needed, and location
-2. PennyWise hits the eRaktKosh government API directly (no browser automation)
-3. Parses 100+ blood bank records, extracts availability data
-4. Ranks results by availability, freshness, and location relevance
-5. Displays actionable results with phone numbers and directions
+2. Parses 100+ blood bank records, extracts availability data
+3. Ranks results by availability, freshness, and location relevance
+4. Displays actionable results with phone numbers and directions
 
 ## Architecture
 
@@ -20,12 +19,11 @@ Instead of manually calling dozens of hospitals, users enter their requirements 
 |-----------|-----------|---------|
 | Frontend | Vanilla JS + CSS | Responsive search UI with SSE live updates |
 | Backend | Node.js + Express | API server, SSE streaming |
-| Data Source | eRaktKosh (govt portal) | Direct API query with security token |
-| AI Agent | TinyFish SDK | Autonomous web navigation (extensible) |
+| AI Agent | TinyFish SDK | Autonomous web navigation |
 
 ### TinyFish Integration
 
-The `runAgent.js` module contains the TinyFish SDK integration for autonomous web agent navigation. This enables PennyWise to navigate arbitrary blood bank websites that don't have direct APIs. The direct eRaktKosh scraper (`eraktkosh.js`) provides the fast path for the primary government source.
+The `runAgent.js` module contains the TinyFish SDK integration for autonomous web agent navigation. This enables PennyWise to navigate arbitrary blood bank websites that don't have direct APIs.
 
 ## Run locally
 
@@ -36,17 +34,11 @@ The `runAgent.js` module contains the TinyFish SDK integration for autonomous we
 No API keys required for the core search functionality. Add `TINYFISH_API_KEY` to `backend/.env` to enable TinyFish agent-based search for additional sources.
 
 ## Key features
-
-- **Direct API access** — queries eRaktKosh in 2-5s instead of 30-60s browser automation
-- **Security token generation** — replicates the portal's client-side security hash
 - **Smart location resolution** — maps 100+ Indian cities to their state codes
 - **Freshness indicators** — shows when inventory was last updated
 - **Phone-first results** — one-tap calling for immediate confirmation
-- **SSE streaming** — results appear as they're found
 
 ## Limitations
-
-- Results depend on eRaktKosh publishing current inventory
 - Not all blood banks update their stock regularly  
 - PennyWise is a discovery tool, not a replacement for blood bank screening or transfusion decisions
 - Always confirm availability directly with the blood bank before travelling
